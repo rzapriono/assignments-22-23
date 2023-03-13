@@ -111,7 +111,7 @@ public class NotaGenerator {
     /**
      * Method untuk menampilkan paket.
      */
-    private static void showPaket() {
+    public static void showPaket() {
         System.out.println("+-------------Paket-------------+");
         System.out.println("| Express | 1 Hari | 12000 / Kg |");
         System.out.println("| Fast    | 2 Hari | 10000 / Kg |");
@@ -178,7 +178,7 @@ public class NotaGenerator {
         
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // set format tanggal menjadi dd/MM/yyyy
         LocalDate tanggal = LocalDate.parse(tanggalTerima, dateFormat); // parse input tanggal ke dalam format yang telah di set
-
+        
         int harga;
         int totalHarga;
         LocalDate tanggalSelesai;
