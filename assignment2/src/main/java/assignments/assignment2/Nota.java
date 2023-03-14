@@ -58,9 +58,14 @@ public class Nota {
             sisaHariPengerjaan = 3;
             tanggalSelesai = tanggal.plusDays(3); // tambahkan 3 hari dari tanggal terima
         }
-        System.out.println(String.format("ID    : %s\nPaket : %s\nHarga :\n%s kg x %s = %s\nTanggal Terima  : %s\nTanggal Selesai : %s\nStatus      	: %s"
-        , this.member.getID(), paket.toLowerCase(), berat, harga, totalHarga, 
-        tanggalMasuk, tanggalSelesai.format(dateFormat), this.getStatus())); // return formatted string sesuai dengan format yang diminta); 
+        if (member.getBonusCounter() == 3){
+            System.out.println(String.format("ID    : %s\nPaket : %s\nHarga :\n%s kg x %s = %s\nTanggal Terima  : %s\nTanggal Selesai : %s\nStatus      	: %s"
+            , this.member.getID(), paket.toLowerCase(), berat, harga, totalHarga, 
+            tanggalMasuk, tanggalSelesai.format(dateFormat), this.getStatus())); // return formatted string sesuai dengan format yang diminta); 
+        } else {
+            
+        }
+        
         
     }
     public int getIdNota(){

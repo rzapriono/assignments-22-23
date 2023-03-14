@@ -28,7 +28,10 @@ public class Member {
     public int getBonusCounter(){
         return bonusCounter;
     }
-    public void setBonusCounter(int counter){
-        this.bonusCounter = counter;
+    public void addBonusCounter(){
+        bonusCounter += 1;
+    }
+    public void resetBonusCounter(){
+        bonusCounter = 0;
     }
 }

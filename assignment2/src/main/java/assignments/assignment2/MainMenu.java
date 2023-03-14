@@ -14,6 +14,7 @@ public class MainMenu {
     private static ArrayList<Nota> notaList = new ArrayList<Nota>();
     private static ArrayList<Member> memberList = new ArrayList<Member>();
     private static int counterIdNota;
+    private static Nota tempRemoveNota;
 
     public static void main(String[] args) {
         boolean isRunning = true;
@@ -94,7 +95,6 @@ public class MainMenu {
                 System.out.printf("Member dengan ID %s tidak ditemukan!\n", inputID);
             }
         }
-        
     }
 
     private static void handleListNota() {
@@ -120,6 +120,20 @@ public class MainMenu {
         while (inputIdNota.matches("[0-9]+") != true){ // cek apakah input id nota berbentuk angka
             System.out.println("ID nota berbentuk angka!");
             inputIdNota = input.nextLine();
+        }
+        boolean found = false;
+        for (Nota nota : notaList){
+            if (nota.getIdNota() == (Integer.parseInt(inputIdNota))){ // jika terdapat nota yang sesuai dengan input id nota
+                found = true;
+                tempRemoveNota = nota;
+                System.out.printf("Nota dengan ID %s berhasil diambil!\n", inputIdNota);
+            }
+        }
+
+        if (found != true){ // jika nota belum bisa diambil / tidak terdapat nota yang sesuai
+            System.out.printf("Nota dengan ID %d gagal diambil!\n", inputIdNota);
+        } else{
+            notaList.remove(tempRemoveNota); // remove nota yang berhasil diambil dari notaList
         }
     }
 
