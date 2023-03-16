@@ -39,8 +39,8 @@ public class Nota {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // set format tanggal menjadi dd/MM/yyyy
         LocalDate tanggal = LocalDate.parse(this.tanggalMasuk, dateFormat); // parse input tanggal ke dalam format yang telah di set
 
-        int harga;
-        int totalHarga;
+        long harga;
+        long totalHarga;
         LocalDate tanggalSelesai;
         // hitung total harga dan tanggal selesai sesuai dengan paket laundry
         if (paket.equalsIgnoreCase("express")){
@@ -61,12 +61,12 @@ public class Nota {
         }
         if (member.getBonusCounter() == 3){ // jika member mendapat diskon (nota ke 3)
             member.resetBonusCounter(); // reset counter diskon
-            System.out.println(String.format("ID    : %s\nPaket : %s\nHarga :\n%s kg x %s = %s = %s (Discount member 50%%!!!);\nTanggal Terima  : %s\nTanggal Selesai : %s\nStatus      	: %s"
-            , this.member.getID(), paket.toLowerCase(), berat, harga, totalHarga, (int)(0.5 * totalHarga), 
+            System.out.println(String.format("ID    : %s\nPaket : %s\nHarga :\n%s kg x %s = %s = %s (Discount member 50%%!!!)\nTanggal Terima  : %s\nTanggal Selesai : %s\nStatus      	: %s"
+            , this.member.getID(), paket, berat, harga, totalHarga, (totalHarga/2), 
             tanggalMasuk, tanggalSelesai.format(dateFormat), this.getStatus()));  
         } else {
             System.out.println(String.format("ID    : %s\nPaket : %s\nHarga :\n%s kg x %s = %s\nTanggal Terima  : %s\nTanggal Selesai : %s\nStatus      	: %s"
-            , this.member.getID(), paket.toLowerCase(), berat, harga, totalHarga, 
+            , this.member.getID(), paket, berat, harga, totalHarga, 
             tanggalMasuk, tanggalSelesai.format(dateFormat), this.getStatus()));
         }
         

@@ -125,21 +125,22 @@ public class MainMenu {
         boolean found2 = false;
         for (Nota nota : notaList){
             if (nota.getIdNota() == (Integer.parseInt(inputIdNota))){ // jika terdapat nota yang sesuai dengan input id nota
+                found2 = true;
                 if (nota.getStatus().equals("Sudah dapat diambil!")){ // cek apakah nota sudah bisa diambil
                     found = true;
                     tempRemoveNota = nota;
                     System.out.printf("Nota dengan ID %s berhasil diambil!\n", inputIdNota);
+                    break;
                 }
-            } else { 
-                found2 = true;
+                break;
             }
         } 
 
         if (found != true){
-            if (found2 == true){ // jika tidak terdapat nota yang sesuai dengan input id nota
-                System.out.printf("Nota dengan ID %s tidak ditemukan!\n", inputIdNota);
-            } else { // jika nota belum bisa diambil 
+            if (found2 == true){  // jika nota belum bisa diambil 
                 System.out.printf("Nota dengan ID %s gagal diambil!\n", inputIdNota);
+            } else { // jika tidak terdapat nota yang sesuai dengan input id nota
+                System.out.printf("Nota dengan ID %s tidak ditemukan!\n", inputIdNota);
             }
         } else {
             notaList.remove(tempRemoveNota); // remove nota yang berhasil diambil dari notaList
