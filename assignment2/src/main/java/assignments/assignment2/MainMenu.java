@@ -99,7 +99,7 @@ public class MainMenu {
 
     private static void handleListNota() {
         // TODO: handle list semua nota pada sistem
-        System.out.printf("Terdapat %d nota dalam sistem.\n", notaList.size());
+        System.out.printf("Terdaftar %d nota dalam sistem.\n", notaList.size());
         for (Nota nota : notaList){ // iterasi semua objek nota pada notaList
             System.out.printf("- [%d] Status      	: %s\n", nota.getIdNota(), nota.getStatus()); // tampilkan id nota dan status dari tiap objek nota
         }
@@ -107,7 +107,7 @@ public class MainMenu {
 
     private static void handleListUser() {
         // TODO: handle list semua user pada sistem
-        System.out.printf("Terdapat %d member dalam sistem.\n", memberList.size());
+        System.out.printf("Terdaftar %d member dalam sistem.\n", memberList.size());
         for (Member member : memberList){ // iterasi semua objek member pada memberList
             System.out.printf("- %s : %s\n", member.getID(), member.getNama()); // tampilkan id dan nama dari tiap objek member
         }
@@ -122,19 +122,29 @@ public class MainMenu {
             inputIdNota = input.nextLine();
         }
         boolean found = false;
+        boolean found2 = false;
         for (Nota nota : notaList){
             if (nota.getIdNota() == (Integer.parseInt(inputIdNota))){ // jika terdapat nota yang sesuai dengan input id nota
-                found = true;
-                tempRemoveNota = nota;
-                System.out.printf("Nota dengan ID %s berhasil diambil!\n", inputIdNota);
+                if (nota.getStatus().equals("Sudah dapat diambil!")){ // cek apakah nota sudah bisa diambil
+                    found = true;
+                    tempRemoveNota = nota;
+                    System.out.printf("Nota dengan ID %s berhasil diambil!\n", inputIdNota);
+                }
+            } else { 
+                found2 = true;
             }
-        }
+        } 
 
-        if (found != true){ // jika nota belum bisa diambil / tidak terdapat nota yang sesuai
-            System.out.printf("Nota dengan ID %d gagal diambil!\n", inputIdNota);
-        } else{
+        if (found != true){
+            if (found2 == true){ // jika tidak terdapat nota yang sesuai dengan input id nota
+                System.out.printf("Nota dengan ID %s tidak ditemukan!\n", inputIdNota);
+            } else { // jika nota belum bisa diambil 
+                System.out.printf("Nota dengan ID %s gagal diambil!\n", inputIdNota);
+            }
+        } else {
             notaList.remove(tempRemoveNota); // remove nota yang berhasil diambil dari notaList
         }
+
     }
 
     private static void handleNextDay() {
@@ -144,7 +154,13 @@ public class MainMenu {
             nota.nextDay(); // kurangi sisa hari pengerjaan nota
             nota.setStatus(); // cek apakah hari pengerjaan sudah 0
         }
-        System.out.println("Dek Depe tidur hari ini... zzz...\nSelamat pagi dunia!\nDek Depe: It's CuciCuci Time.");
+        System.out.println("Dek Depe tidur hari ini... zzz...");
+        for (Nota nota : notaList){ // tampilkan nota yang sudah bisa diambil pada hari tersebut jika ada
+            if (nota.getStatus().equals("Sudah dapat diambil!")){
+                System.out.printf("Laundry dengan nota ID %d sudah dapat diambil!\n", nota.getIdNota());
+            } 
+        }
+        System.out.println("Selamat pagi dunia!\nDek Depe: It's CuciCuci Time.");
     }
 
     private static void printMenu() {
@@ -180,7 +196,8 @@ public class MainMenu {
         String inputBeratCucian;
         System.out.println("Masukkan berat cucian Anda [Kg]: ");
         inputBeratCucian = input.nextLine();
-        while (inputBeratCucian.matches("[1-9][0-9]*") != true || inputBeratCucian.matches("0")){ // validasi input berat cucian agar hanya mengandung angka positif dalam bentuk string
+        while (inputBeratCucian.matches("[0-9]+") != true || Integer.parseInt(inputBeratCucian) == 0 
+        || inputBeratCucian.contains(" ")){ // validasi input berat cucian agar hanya mengandung angka positif dalam bentuk string
             System.out.println("Harap masukkan berat cucian Anda dalam bentuk bilangan positif.");
             inputBeratCucian = input.nextLine();
         } 

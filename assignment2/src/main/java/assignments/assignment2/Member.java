@@ -13,7 +13,7 @@ public class Member {
         // TODO: buat constructor untuk class ini
         this.nama = nama;
         this.noHp = noHp;
-        this.ID = NotaGenerator.generateId(nama, noHp);
+        this.ID = NotaGenerator.generateId(nama, noHp); // generate id untuk tiap objek member
     }
 
     public String getNama(){

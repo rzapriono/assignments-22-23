@@ -19,6 +19,7 @@ public class Nota {
         this.paket = paket;
         this.berat = berat;
         this.tanggalMasuk = tanggalMasuk;
+        member.addBonusCounter(); // increment counter untuk diskon member tiap objek nota dibuat
     }
 
     // TODO: tambahkan methods yang diperlukan untuk class ini
@@ -58,14 +59,16 @@ public class Nota {
             sisaHariPengerjaan = 3;
             tanggalSelesai = tanggal.plusDays(3); // tambahkan 3 hari dari tanggal terima
         }
-        if (member.getBonusCounter() == 3){
+        if (member.getBonusCounter() == 3){ // jika member mendapat diskon (nota ke 3)
+            member.resetBonusCounter(); // reset counter diskon
+            System.out.println(String.format("ID    : %s\nPaket : %s\nHarga :\n%s kg x %s = %s = %s (Discount member 50%%!!!);\nTanggal Terima  : %s\nTanggal Selesai : %s\nStatus      	: %s"
+            , this.member.getID(), paket.toLowerCase(), berat, harga, totalHarga, (int)(0.5 * totalHarga), 
+            tanggalMasuk, tanggalSelesai.format(dateFormat), this.getStatus()));  
+        } else {
             System.out.println(String.format("ID    : %s\nPaket : %s\nHarga :\n%s kg x %s = %s\nTanggal Terima  : %s\nTanggal Selesai : %s\nStatus      	: %s"
             , this.member.getID(), paket.toLowerCase(), berat, harga, totalHarga, 
-            tanggalMasuk, tanggalSelesai.format(dateFormat), this.getStatus())); // return formatted string sesuai dengan format yang diminta); 
-        } else {
-            
+            tanggalMasuk, tanggalSelesai.format(dateFormat), this.getStatus()));
         }
-        
         
     }
     public int getIdNota(){
