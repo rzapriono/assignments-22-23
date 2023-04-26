@@ -11,6 +11,7 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:5.2.0'
     testImplementation 'org.mockito:mockito-junit-jupiter:4.0.0'
     implementation project(':assignment1')
+    implementation project(':assignment2')
 }
 
 test {

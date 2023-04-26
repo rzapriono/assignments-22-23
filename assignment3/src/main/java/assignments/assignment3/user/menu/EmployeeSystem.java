@@ -12,7 +12,7 @@ public class EmployeeSystem extends SystemCLI {
      * Membuat object baru EmployeeSystem dan mendaftarkan Employee pada CuciCuci
      */
     public EmployeeSystem() {
-        memberList = new Member[]{
+        memberList = new Member[] {
                 new Employee("Dek Depe", "akuDDP"),
                 new Employee("Depram", "musiktualembut"),
                 new Employee("Lita Duo", "gitCommitPush"),
@@ -21,7 +21,8 @@ public class EmployeeSystem extends SystemCLI {
     }
 
     /**
-     * Memproses pilihan dari employee yang masuk ke sistem ini sesuai dengan menu specific.
+     * Memproses pilihan dari employee yang masuk ke sistem ini sesuai dengan menu
+     * specific.
      *
      * @param choice -> pilihan pengguna.
      * @return true jika user log.
@@ -30,6 +31,11 @@ public class EmployeeSystem extends SystemCLI {
     protected boolean processChoice(int choice) {
         boolean logout = false;
         // TODO:
+        switch (choice) {
+            case 1 -> nyuciTime();
+            case 2 -> displayListNota();
+            case 3 -> logout = true;
+        }
         return logout;
     }
 
@@ -42,4 +48,18 @@ public class EmployeeSystem extends SystemCLI {
         System.out.println("2. Display List Nota");
         System.out.println("3. Logout");
     }
+
+    public void nyuciTime(){ // SOUT STRING YG DIRETURN DARI METHOD KERJAKAN
+        System.out.printf("Stand back! %s beginning to nyuci!\n", loginMember.getNama());
+        for (Nota nota: notaList){
+            System.out.println(nota.kerjakan());
+        }
+    }
+
+    public void displayListNota(){ // GET NOTA STATUS PAKE DISINI 
+        for (Nota nota : notaList){
+            System.out.println(nota.getNotaStatus());
+        }
+    }
+
 }

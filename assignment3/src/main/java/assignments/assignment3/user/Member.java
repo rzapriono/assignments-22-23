@@ -1,6 +1,7 @@
 package assignments.assignment3.user;
 
 import assignments.assignment3.nota.Nota;
+
 public class Member {
     protected String id;
     protected String password;
@@ -16,9 +17,10 @@ public class Member {
     /**
      * Method otentikasi member dengan ID dan password yang diberikan.
      *
-     * @param id -> ID anggota yang akan diautentikasi.
+     * @param id       -> ID anggota yang akan diautentikasi.
      * @param password -> password anggota untuk mengautentikasi.
-     * @return true jika ID dan password sesuai dengan instance member, false jika tidak.
+     * @return true jika ID dan password sesuai dengan instance member, false jika
+     *         tidak.
      */
     public boolean login(String id, String password) {
         return id.equals(this.id) && authenticate(password);
@@ -31,17 +33,28 @@ public class Member {
      */
     public void addNota(Nota nota) {
         // TODO
+        Nota[] enlargedNotaList = new Nota[notaList.length + 1];
+        for (int i = 0; i < notaList.length; i++) {
+            enlargedNotaList[i] = notaList[i];
+        }
+        notaList = enlargedNotaList;
+        notaList[notaList.length - 1] = nota;
     }
 
     /**
      * Method otentikasi member dengan password yang diberikan.
      *
      * @param password -> sandi password anggota untuk mengautentikasi.
-     * @return true jika ID dan password sesuai dengan instance member, false jika tidak.
+     * @return true jika ID dan password sesuai dengan instance member, false jika
+     *         tidak.
      */
     protected boolean authenticate(String password) {
         // TODO
-        return false;
+        if (this.password.equals(password)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     // Dibawah ini adalah getter
