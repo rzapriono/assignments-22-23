@@ -23,7 +23,7 @@ public class SetrikaService implements LaundryService{
     @Override
     public long getHarga(int berat) {
         // TODO
-        return berat * 1_000;
+        return berat * 1_000; // kalikan berat cucian dengan harga service setrika (1000 per kg)
     }
 
     @Override

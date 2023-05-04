@@ -4,7 +4,6 @@ import assignments.assignment1.NotaGenerator;
 import assignments.assignment3.nota.Nota;
 import assignments.assignment3.nota.NotaManager;
 import assignments.assignment3.nota.service.AntarService;
-import assignments.assignment3.nota.service.CuciService;
 import assignments.assignment3.nota.service.SetrikaService;
 import assignments.assignment3.user.Member;
 
@@ -56,6 +55,9 @@ public class MemberSystem extends SystemCLI {
         memberList[memberList.length - 1] = member;
     }
 
+    /**
+     * Proses buat nota jika member yang sedang login ingin laundry
+     */
     public void processLaundry() {
         String paket = validasiPaket();
         int berat = validasiBerat();
@@ -68,10 +70,7 @@ public class MemberSystem extends SystemCLI {
         Nota newNota = new Nota(loginMember, berat, paket, fmt.format(cal.getTime()));
         loginMember.addNota(newNota);
         NotaManager.addNota(newNota);
-        newNota.generateNota();
         
-        CuciService cuci = new CuciService();
-        newNota.addService(cuci);
         if (!inputSetrika.equalsIgnoreCase("x")){
             SetrikaService setrika = new SetrikaService();
             newNota.addService(setrika);
@@ -83,13 +82,21 @@ public class MemberSystem extends SystemCLI {
         System.out.println("Nota berhasil dibuat!");
     }
 
+    /**
+     * Proses menampilkan seluruh nota dari member yang sedang login
+     */
     public void processLihatNota(){
         Nota[] notaListLoginMember = loginMember.getNotaList();
         for (Nota nota : notaListLoginMember){
+            nota.calculateHarga();
             System.out.println(nota);
         }
     }
 
+    /**
+     * Validasi agar paket yang dipesan sesuai dengan yang tersedia
+     * @return string nama paket
+     */
     public String validasiPaket() {
         while (true) { // validasi input paket laundry
             System.out.println("Masukkan paket laundry: ");
@@ -107,6 +114,10 @@ public class MemberSystem extends SystemCLI {
         }
     }
 
+    /**
+     * Validasi agar berat yang diinput sesuai dengan ketentuan soal
+     * @return int berat
+     */
     public int validasiBerat() {
         String inputBeratCucian;
         System.out.println("Masukkan berat cucian Anda [Kg]: ");

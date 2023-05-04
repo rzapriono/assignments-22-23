@@ -42,11 +42,11 @@ public class LoginManager {
      */
     public Member register(String nama, String noHp, String password) {
         // TODO
-        Member newMember = new Member(nama, NotaGenerator.generateId(nama, noHp), password);
-        if (memberSystem.isMemberExist(newMember.getId())) {
+        Member newMember = new Member(nama, NotaGenerator.generateId(nama, noHp), password); // create object member sekaligus create id nya
+        if (memberSystem.isMemberExist(newMember.getId())) { // cek apakah id dari nama dan nomor yang ingin di register telah terdaftar
             return null;
         } else {
-            memberSystem.addMember(newMember);
+            memberSystem.addMember(newMember); // tambahkan member baru jika belum terdaftar
             return newMember;
         }
     }

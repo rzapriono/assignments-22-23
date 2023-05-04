@@ -75,7 +75,7 @@ public class MainMenu {
         String password = in.nextLine();
 
         Member registeredMember = loginManager.register(nama, noHp, password);
-        if (registeredMember == null) {
+        if (registeredMember == null) { // jika member yang ingin didaftarkan sudah terdaftar
             System.out.printf("User dengan nama %s dan nomor hp %s sudah ada!\n\n", nama, noHp);
             return;
         }

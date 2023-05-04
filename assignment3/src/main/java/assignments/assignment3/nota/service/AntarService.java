@@ -1,7 +1,5 @@
 package assignments.assignment3.nota.service;
 
-import assignments.assignment3.nota.Nota;
-
 public class AntarService implements LaundryService{
     private boolean isDone;
 
@@ -25,9 +23,9 @@ public class AntarService implements LaundryService{
     @Override
     public long getHarga(int berat) {
         // TODO
-        if (berat >= 4){
+        if (berat >= 4){ // kalikan berat cucian dengan harga service antar (500 per kg) jika berat >= 4 kg
             return berat * 500;
-        } else {
+        } else { // jika berat < 2 kg maka harga service antar menjadi 2000
             return 2_000;
         }
     }

@@ -28,7 +28,7 @@ public abstract class SystemCLI {
             return;
         }
 
-        System.out.println("Invalid ID or password.");
+        System.out.println("Invalid ID or password.\n");
     };
 
     /**
@@ -59,7 +59,6 @@ public abstract class SystemCLI {
      */
     public Member authUser(String id, String pass) {
         for (Member user : memberList) {
-            System.out.println(user.getId()); // JANGAN LUPA DIAPUS (BUAT CEK EMPLOYEE DAN USER)
             if (!user.getId().equals(id)) {
                 continue;
             }
@@ -79,7 +78,6 @@ public abstract class SystemCLI {
      */
     public boolean isMemberExist(String id) {
         for (Member member : memberList) {
-            System.out.println(member.getId()); // JANGAN LUPA DIAPUS
             if (member.getId().equals(id)) {
                 return true;
             }

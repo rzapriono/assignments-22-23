@@ -23,7 +23,7 @@ public class CuciService implements LaundryService{
     @Override
     public long getHarga(int berat) {
         // TODO
-        return 0;
+        return 0; // harga cuci sudah termasuk saat nota dibuat
     }
 
     @Override
