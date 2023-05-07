@@ -57,12 +57,12 @@ public class Nota {
      */
     public void addService(LaundryService service) { 
         // TODO
-        LaundryService[] enlargedServices = new LaundryService[this.services.length + 1]; 
+        LaundryService[] enlargedServices = new LaundryService[this.services.length + 1]; // buat temp array yang lebih panjang 1 elemen
         for (int i = 0; i < this.services.length; i++) {
-            enlargedServices[i] = services[i];
+            enlargedServices[i] = services[i]; // copy elemen array ke temp array
         }
-        this.services = enlargedServices;
-        this.services[this.services.length - 1] = service;
+        this.services = enlargedServices; // samakan ukuran array dan elemennya
+        this.services[this.services.length - 1] = service; // masukkan paramater ke array asli
     }
 
     /**

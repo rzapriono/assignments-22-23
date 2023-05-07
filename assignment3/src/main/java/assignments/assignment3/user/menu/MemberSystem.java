@@ -47,12 +47,12 @@ public class MemberSystem extends SystemCLI {
      */
     public void addMember(Member member) {
         // TODO
-        Member[] enlargedMemberList = new Member[memberList.length + 1];
+        Member[] enlargedMemberList = new Member[memberList.length + 1]; // buat temp array yang lebih panjang 1 elemen
         for (int i = 0; i < memberList.length; i++) {
-            enlargedMemberList[i] = memberList[i];
+            enlargedMemberList[i] = memberList[i]; // copy elemen array ke temp array
         }
-        memberList = enlargedMemberList;
-        memberList[memberList.length - 1] = member;
+        memberList = enlargedMemberList; // samakan ukuran array dan elemennya
+        memberList[memberList.length - 1] = member; // masukkan paramater ke array asli
     }
 
     /**

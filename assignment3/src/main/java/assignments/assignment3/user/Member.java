@@ -33,12 +33,12 @@ public class Member {
      */
     public void addNota(Nota nota) {
         // TODO
-        Nota[] enlargedNotaList = new Nota[notaList.length + 1];
+        Nota[] enlargedNotaList = new Nota[notaList.length + 1]; // buat temp array yang lebih panjang 1 elemen
         for (int i = 0; i < notaList.length; i++) {
-            enlargedNotaList[i] = notaList[i];
+            enlargedNotaList[i] = notaList[i]; // copy elemen array ke temp array
         }
-        notaList = enlargedNotaList;
-        notaList[notaList.length - 1] = nota;
+        notaList = enlargedNotaList; // samakan ukuran array dan elemennya
+        notaList[notaList.length - 1] = nota; // masukkan paramater ke array asli
     }
 
     /**
