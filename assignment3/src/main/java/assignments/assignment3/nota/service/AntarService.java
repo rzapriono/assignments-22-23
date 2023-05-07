@@ -13,7 +13,7 @@ public class AntarService implements LaundryService{
     @Override
     public boolean isDone() {
         // TODO
-        if (isDone){
+        if (isDone){ // jika pernah dikerjakan, maka service antar sudah selesai
             return true;
         } else {
             return false;

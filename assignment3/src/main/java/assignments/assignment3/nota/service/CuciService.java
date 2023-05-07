@@ -13,7 +13,7 @@ public class CuciService implements LaundryService{
     @Override
     public boolean isDone() {
         // TODO
-        if (isDone){
+        if (isDone){ // jika pernah dikerjakan, maka service cuci sudah selesai
             return true;
         } else {
             return false;

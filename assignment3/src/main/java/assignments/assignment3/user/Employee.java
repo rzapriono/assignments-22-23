@@ -19,7 +19,7 @@ public class Employee extends Member {
     private static String generateId(String nama) {
         // TODO
         nama = nama.split(" ")[0]; // ambil nama depan
-        String id = nama.toUpperCase() + "-" + employeeCount; // buat id sesuai ketentuan pada soal
+        String id = nama.toUpperCase() + "-" + employeeCount; // buat id dengan urutan pembuatan object employee
         return id;
     }
     

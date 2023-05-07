@@ -11,7 +11,7 @@ public class Nota {
     private Member member;
     private String paket;
     private LaundryService[] services;
-    private long baseHarga; // harga paket
+    private long baseHarga; // harga paket per kg
     private long cuciHarga; // harga paket * berat cucian
     private long totalHarga; // harga include services + kompensasi (jika ada)
     private boolean isLate;
@@ -32,8 +32,9 @@ public class Nota {
         this.tanggalMasuk = tanggal;
         this.idNota = totalNota++;
         this.services = new LaundryService[0];
-        this.addService(new CuciService());
+        this.addService(new CuciService()); // add service cuci untuk tiap nota yang dibuat
 
+        // tentukan base harga dan sisa hari pengerjaan sesuai dengan paket yang dipesan
         if (paket.equalsIgnoreCase("express")){
             baseHarga = 12000;
             sisaHariPengerjaan = 1;
@@ -44,7 +45,7 @@ public class Nota {
             baseHarga = 7000;
             sisaHariPengerjaan = 3;
         }
-        cuciHarga = berat * baseHarga;
+        cuciHarga = berat * baseHarga; // harga untuk cuci tanpa service lain
 
         this.isDone();
         this.calculateHarga();
@@ -71,16 +72,16 @@ public class Nota {
     public String kerjakan() {
         // TODO
         String statusNyuciTime = "";
-        if (!isDone()){
+        if (!isDone()){ // jika nota belum seleseai
             for (LaundryService service : services){
-                if (!service.isDone()){
-                    statusNyuciTime = "Nota " + idNota +  " : " + service.doWork();
+                if (!service.isDone()){ // jika service belum selesai
+                    statusNyuciTime = "Nota " + idNota +  " : " + service.doWork(); // kerjakan servicenya
                     break;
                 } else {
-                    continue;
+                    continue; // jika service sudah selesai, lanjut ke service selanjutnya
                 }
             }
-        } else {
+        } else { // tampilkan pesan bahwa nota sudah selesai
             statusNyuciTime = "Nota " + idNota +  " : Sudah selesai.";
         }
         return statusNyuciTime;
@@ -92,8 +93,8 @@ public class Nota {
      */
     public void toNextDay() {
         // TODO
-        sisaHariPengerjaan -= 1;
-        if (!isDone() && sisaHariPengerjaan < 0){
+        sisaHariPengerjaan -= 1; // kurangi sisa hari pengerjaan
+        if (!isDone() && sisaHariPengerjaan < 0){ // jika nota belum selesai atau terlambat
             isLate = true;
         }
     }
@@ -105,15 +106,15 @@ public class Nota {
     public long calculateHarga() {
         // TODO
         totalHarga = cuciHarga;
-        for (LaundryService service : services){
+        for (LaundryService service : services){ // tambahkan harga dari service yang dipesan ke total harga
             totalHarga += service.getHarga(berat);  
         }
         
-        if (isLate){
+        if (isLate){ // jika terlambat, maka diberikan kompensasi 2000 per hari (total harga - 2000 untuk tiap hari keterlambatan)
             totalHarga -= (2000 * Math.abs(sisaHariPengerjaan));
         }
 
-        if (totalHarga < 0){
+        if (totalHarga < 0){ // total harga tidak boleh negatif
             totalHarga = 0;
         }
 
@@ -125,7 +126,7 @@ public class Nota {
      */
     public String getNotaStatus() {
         // TODO
-        if (this.isDone()){
+        if (this.isDone()){ // menampilkan status dari tiap nota apakah sudah selesai atau belum
             return String.format("Nota %d : Sudah selesai.", idNota);
         } else {
             return String.format("Nota %d : Belum selesai.", idNota);
@@ -146,15 +147,15 @@ public class Nota {
         }
 
         String serviceList = "--- SERVICE LIST ---\n";
-        for (LaundryService service : services){
+        for (LaundryService service : services){ // iterasi array services untuk menampilkan service beserta harganya dari tiap nota
             serviceList += "-" + service.getServiceName() + " @ Rp." + service.getHarga(berat) + "\n";
         }
-        if (isLate){
+        if (isLate){ // jika nota terlambat (ada kompensasi)
             serviceList += "Harga Akhir: " + totalHarga + " Ada kompensasi keterlambatan " + Math.abs(sisaHariPengerjaan) + " * 2000 hari\n";
         } else {
             serviceList += "Harga Akhir: " + totalHarga + "\n";
         }
-        
+        // return string sesuai dengan ketentuan soal
         return String.format(
         "[ID Nota = %d]\nID    : %s\nPaket : %s\nHarga :\n%s kg x %s = %s\ntanggal terima  : %s\ntanggal selesai : %s\n", 
         idNota, member.getId(), paket, berat, baseHarga, cuciHarga, tanggalMasuk, tanggalSelesai.format(dateFormat)) + serviceList;
@@ -185,14 +186,14 @@ public class Nota {
      */
     public boolean isDone() {
         for (LaundryService service : services){
-            if (service.isDone()){
+            if (service.isDone()){ // cek apakah tiap service sudah selesai dikerjakan
                 continue;
-            } else {
+            } else { // jika ada service yang belum dikerjakan, maka nota belum selesai
                 isDone = false;
                 return isDone;
             }
         }
-        isDone = true;
+        isDone = true; // nota sudah selesai jika semua service sudah dikerjakan
         return isDone;
     }
 

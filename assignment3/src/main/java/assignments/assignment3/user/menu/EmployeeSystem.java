@@ -31,7 +31,7 @@ public class EmployeeSystem extends SystemCLI {
     protected boolean processChoice(int choice) {
         boolean logout = false;
         // TODO:
-        switch (choice) {
+        switch (choice) { // proses sesuai dengan pilihan user
             case 1 -> nyuciTime();
             case 2 -> displayListNota();
             case 3 -> logout = true;
@@ -49,16 +49,22 @@ public class EmployeeSystem extends SystemCLI {
         System.out.println("3. Logout");
     }
 
-    public void nyuciTime(){ // SOUT STRING YG DIRETURN DARI METHOD KERJAKAN
+    /**
+     * Memproses pengerjaan nota
+     */
+    public void nyuciTime(){
         System.out.printf("Stand back! %s beginning to nyuci!\n", loginMember.getNama());
         for (Nota nota: notaList){
-            System.out.println(nota.kerjakan());
+            System.out.println(nota.kerjakan()); // kerjakan tiap nota dan tampilkan status pengerjaannya
         }
     }
 
-    public void displayListNota(){ // GET NOTA STATUS PAKE DISINI 
+    /**
+     * Menampilkan status tiap nota
+     */
+    public void displayListNota(){
         for (Nota nota : notaList){
-            System.out.println(nota.getNotaStatus());
+            System.out.println(nota.getNotaStatus()); // menampilkan apakah nota sudah selesai atau belum untuk setiap nota
         }
     }
 

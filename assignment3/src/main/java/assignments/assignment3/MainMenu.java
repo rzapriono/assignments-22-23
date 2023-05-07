@@ -63,6 +63,7 @@ public class MainMenu {
      * Mendaftarkan user pada sistem.
      */
     void register() {
+        // minta input nama, nomor hp, dan password
         System.out.println("Masukan nama Anda: ");
         String nama = in.nextLine();
         System.out.println("Masukkan nomor handphone Anda: "); 
@@ -74,7 +75,7 @@ public class MainMenu {
         System.out.println("Masukan password Anda: ");
         String password = in.nextLine();
 
-        Member registeredMember = loginManager.register(nama, noHp, password);
+        Member registeredMember = loginManager.register(nama, noHp, password); // cek apakah member sudah terdaftar
         if (registeredMember == null) { // jika member yang ingin didaftarkan sudah terdaftar
             System.out.printf("User dengan nama %s dan nomor hp %s sudah ada!\n\n", nama, noHp);
             return;

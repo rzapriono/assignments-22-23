@@ -13,9 +13,9 @@ public class NotaManager {
      */
     public static void toNextDay() {
         // TODO: implement skip hari
-        cal.add(Calendar.DATE, 1);
+        cal.add(Calendar.DATE, 1); // tambahkan 1 hari ke sistem
         for (Nota nota : notaList){
-            nota.toNextDay(); // kurangi sisa hari pengerjaan nota
+            nota.toNextDay(); // kurangi sisa hari pengerjaan nota dan cek apakah nota terlambat
         }
     }
 

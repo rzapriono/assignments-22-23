@@ -22,7 +22,7 @@ public class MemberSystem extends SystemCLI {
     protected boolean processChoice(int choice) {
         boolean logout = false;
         // TODO
-        switch (choice) {
+        switch (choice) { // proses sesuai dengan pilihan user
             case 1 -> processLaundry();
             case 2 -> processLihatNota();
             case 3 -> logout = true;
@@ -59,6 +59,7 @@ public class MemberSystem extends SystemCLI {
      * Proses buat nota jika member yang sedang login ingin laundry
      */
     public void processLaundry() {
+        // minta input yang diperlukan
         String paket = validasiPaket();
         int berat = validasiBerat();
 
@@ -67,17 +68,17 @@ public class MemberSystem extends SystemCLI {
         System.out.print("Mau diantar oleh kurir kami? Dijamin aman dan cepat sampai tujuan!\nCuma 2000 / 4kg, kemudian 500 / kg\n[Ketik x untuk tidak mau]: ");
         String inputAntar = in.nextLine();
 
-        Nota newNota = new Nota(loginMember, berat, paket, fmt.format(cal.getTime()));
-        loginMember.addNota(newNota);
-        NotaManager.addNota(newNota);
+        Nota newNota = new Nota(loginMember, berat, paket, fmt.format(cal.getTime())); // buat object nota baru
+        loginMember.addNota(newNota); // tambahkan nota ke notaList member yang sedang login
+        NotaManager.addNota(newNota); // tambahkan nota ke notaList yang berisikan nota dari semua member
         
         if (!inputSetrika.equalsIgnoreCase("x")){
-            SetrikaService setrika = new SetrikaService();
-            newNota.addService(setrika);
+            SetrikaService setrika = new SetrikaService(); 
+            newNota.addService(setrika); // add service setrika ke nota jika user ingin cucian disetrika
         }
         if (!inputAntar.equalsIgnoreCase("x")){
             AntarService antar = new AntarService();
-            newNota.addService(antar);
+            newNota.addService(antar); // add service antar ke nota jika user ingin cucian diantar
         }
         System.out.println("Nota berhasil dibuat!");
     }
@@ -86,10 +87,10 @@ public class MemberSystem extends SystemCLI {
      * Proses menampilkan seluruh nota dari member yang sedang login
      */
     public void processLihatNota(){
-        Nota[] notaListLoginMember = loginMember.getNotaList();
+        Nota[] notaListLoginMember = loginMember.getNotaList(); // nota pesanan dari member yang sedang login
         for (Nota nota : notaListLoginMember){
-            nota.calculateHarga();
-            System.out.println(nota);
+            nota.calculateHarga(); // hitung harga, cek keterlambatan untuk tiap nota
+            System.out.println(nota); // tampilkan informasi nota sesuai dengan ketentuan soal
         }
     }
 

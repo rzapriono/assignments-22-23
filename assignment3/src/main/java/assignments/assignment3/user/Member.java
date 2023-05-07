@@ -50,7 +50,7 @@ public class Member {
      */
     protected boolean authenticate(String password) {
         // TODO
-        if (this.password.equals(password)) {
+        if (this.password.equals(password)) { // cek kebenaran password yang diinput oleh user
             return true;
         } else {
             return false;
