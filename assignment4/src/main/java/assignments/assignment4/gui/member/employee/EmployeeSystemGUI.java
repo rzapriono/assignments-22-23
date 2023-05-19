@@ -32,6 +32,7 @@ public class EmployeeSystemGUI extends AbstractMemberGUI {
     @Override
     protected JButton[] createButtons() {
         // TODO
+        // buat button untk nyuci (mengerjakan nota) dan button untuk menampilkan list / status nota
         JButton nyuciButton = new JButton("It's nyuci time");
         JButton displayListNotaButton = new JButton("Display List Nota");
 
@@ -63,10 +64,11 @@ public class EmployeeSystemGUI extends AbstractMemberGUI {
         // TODO
         String displayNota = "";
         for (Nota nota : NotaManager.getAllNota()){
-            displayNota += nota.getNotaStatus() + "\n";
+            displayNota += nota.getNotaStatus() + "\n"; // status dari tiap nota yang telah dibuat
         }
 
-        if (NotaManager.getAllNota().length == 0){
+        if (NotaManager.getAllNota().length == 0){ // jika belum ada nota yang dibuat
+            // menambahkan gif pada pop up message yang akan ditampilkan
             String dir = System.getProperty("user.dir")+"/assignment4/src/main/java/assignments/assignment4/gui/designs/cry2.gif";
             ImageIcon sleeping =new ImageIcon(dir);
 
@@ -76,7 +78,7 @@ public class EmployeeSystemGUI extends AbstractMemberGUI {
         }
 
         JOptionPane.showMessageDialog(this, displayNota, "List Nota",
-                JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.INFORMATION_MESSAGE); // tampilkan informasi list nota
     }
 
     /**
@@ -87,10 +89,11 @@ public class EmployeeSystemGUI extends AbstractMemberGUI {
         // TODO
         String kerjakanString = "";
         for (Nota nota : NotaManager.getAllNota()){
-            kerjakanString += nota.kerjakan() + "\n";
+            kerjakanString += nota.kerjakan() + "\n"; // gunakan method kerjakan yang telah diimplementasikan di TP3
         }
 
-        if (NotaManager.getAllNota().length == 0){
+        if (NotaManager.getAllNota().length == 0){ // jika belum ada nota yang dibuat
+            // menambahkan gif pada pop up message yang akan ditampilkan
             String dir = System.getProperty("user.dir")+"/assignment4/src/main/java/assignments/assignment4/gui/designs/cry2.gif";
             ImageIcon sleeping =new ImageIcon(dir);
 
@@ -104,6 +107,6 @@ public class EmployeeSystemGUI extends AbstractMemberGUI {
                 JOptionPane.INFORMATION_MESSAGE);
 
         JOptionPane.showMessageDialog(this, kerjakanString, "List Nota",
-                JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.INFORMATION_MESSAGE); // tampilkan informasi progress pengerjaan dari tiap nota
     }
 }

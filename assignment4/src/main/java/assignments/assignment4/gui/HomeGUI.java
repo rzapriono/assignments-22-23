@@ -29,11 +29,13 @@ public class HomeGUI extends JPanel {
         mainPanel = new JPanel(new GridBagLayout());
         mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 30, 10, 10));
 
+        // buat panel baru untuk menambahkan gambar dan atur background panel tersebut
         pictPanel = new JPanel(new GridBagLayout());
         pictPanel.setBackground(new Color(198, 224, 225));
 
         initGUI();
 
+        // tambahkan kedua panel ke frame
         add(pictPanel, BorderLayout.CENTER);
         add(mainPanel, BorderLayout.WEST);
 
@@ -45,12 +47,12 @@ public class HomeGUI extends JPanel {
      * Be creative and have fun!
      * */
     private void initGUI() {
-        gbc.anchor = GridBagConstraints.NORTHWEST; // BUAT SET KE KIRI
+        // mengatur letak dan tampilan components, panel, dan frame
+        gbc.anchor = GridBagConstraints.NORTHWEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-
         mainPanel.setBackground(new Color(198, 224, 225));
 
-        // create & add label dan button ke mainPanel serta atur tampilannya
+        // buat label untuk menampilkan title dan tambahkan ke frame
         titleLabel = new JLabel("Selamat Datang di CuciCuci System!", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Gang of Three", Font.PLAIN, 40));
         this.setBackground(new Color(229, 174, 78));
@@ -60,8 +62,10 @@ public class HomeGUI extends JPanel {
         gbc.insets = new Insets(0, 0, 50, 0);
         add(titleLabel, BorderLayout.NORTH);
 
+        // pengaturan jarak antar button
         gbc.insets = new Insets(0, 0, 20, 0);
 
+        // buat button untuk login dan tambahkan ke mainPanel
         loginButton = new JButton("Login");
         setButtonDesign(loginButton);
         gbc.gridx = 0;
@@ -70,17 +74,20 @@ public class HomeGUI extends JPanel {
         gbc.gridheight = 2;
         mainPanel.add(loginButton, gbc);
 
+        // buat button untuk register dan tambahkan ke mainPanel
         registerButton = new JButton("Register");
         setButtonDesign(registerButton);
         gbc.gridy = 4;
         mainPanel.add(registerButton, gbc);
 
+        // buat button untuk next day dan tambahkan ke mainPanel
         toNextDayButton = new JButton("Next Day");
         setButtonDesign(toNextDayButton);
         gbc.gridy = 6;
         gbc.insets = new Insets(0, 0, 0, 0);
         mainPanel.add(toNextDayButton, gbc);
 
+        // buat label untuk menampilkan tanggal dan tambahkan ke mainPanel
         dateLabel = new JLabel("Hari ini: " + NotaManager.fmt.format(NotaManager.cal.getTime()));
         dateLabel.setFont(new Font("Gang of Three", Font.PLAIN, 20));
         dateLabel.setForeground(new Color(219, 22, 14));
@@ -89,7 +96,7 @@ public class HomeGUI extends JPanel {
         gbc.insets = new Insets(50, 0, 0, 0);
         mainPanel.add(dateLabel, gbc);
 
-        // Buat objek image icon dan label dari gambar yang ingin ditampilkan, kemudian tambahkan ke panel untuk gambar (pictPanel)
+        // buat object image icon dan label dari gambar yang ingin ditampilkan, kemudian tambahkan ke panel untuk gambar (pictPanel)
         String dir = System.getProperty("user.dir")+"/assignment4/src/main/java/assignments/assignment4/gui/designs/fuji.jpg";
         ImageIcon fuji =new ImageIcon(dir);
         JLabel fujiLabel =new JLabel(fuji);

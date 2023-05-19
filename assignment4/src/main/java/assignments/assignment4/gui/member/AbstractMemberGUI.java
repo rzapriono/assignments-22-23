@@ -17,18 +17,20 @@ public abstract class AbstractMemberGUI extends JPanel implements Loginable{
     private JPanel mainPanel;
     private JPanel pictPanel;
     private GridBagConstraints gbc = new GridBagConstraints();
-    private static final int DELAY = 10; // Delay dalam milidetik
-    private static final int SPEED = 1; // Kecepatan pergeseran teks
+    private static final int DELAY = 10; // delay untuk running text
+    private static final int SPEED = 1; // kecepatan pergeseran running text
 
     public AbstractMemberGUI(SystemCLI systemCLI) {
         super(new BorderLayout());
         this.systemCLI = systemCLI;
         this.setBackground(new Color(23, 36, 110));
 
+        // buat panel yang akan menampung button dan info id
         mainPanel = new JPanel(new GridBagLayout());
         mainPanel.setBackground(new Color(198, 224, 225));
         mainPanel.setPreferredSize(new Dimension(300,450));
 
+        // buat panel yang akan menampung gambar
         pictPanel = new JPanel(new BorderLayout());
         pictPanel.setBackground(new Color(198, 224, 225));
 
@@ -38,22 +40,14 @@ public abstract class AbstractMemberGUI extends JPanel implements Loginable{
         welcomeLabel.setForeground(new Color(229, 174, 78));
         add(welcomeLabel, BorderLayout.NORTH);
 
-        JLabel menuLabel = new JLabel("", SwingConstants.CENTER);
-        menuLabel.setFont(new Font("Gang of Three", Font.PLAIN, 30));
-        menuLabel.setForeground(new Color(229, 174, 78));
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.HORIZONTAL; // supaya text field ikut berubah ukuran kalo frame diresize
-        gbc.weightx = 1;
-        mainPanel.add(menuLabel, gbc);
-
+        // membuat running text untuk welcomeLabel yang menampilkan nama user
         Timer timer = new Timer(DELAY, new ActionListener() {
-            int x = mainPanel.getWidth(); // Mulai dari posisi paling kanan
+            int x = mainPanel.getWidth(); // mulai dari posisi paling kanan
             @Override
             public void actionPerformed(ActionEvent e) {
-                x -= SPEED; // Menggeser posisi teks ke kiri
+                x -= SPEED; // menggeser posisi teks ke kiri
                 if (x < -welcomeLabel.getWidth()) {
-                    x = mainPanel.getWidth(); // Mengatur ulang posisi ke paling kanan setelah teks mencapai batas kiri
+                    x = mainPanel.getWidth(); // mengatur ulang posisi ke paling kanan setelah teks mencapai batas kiri
                 }
                 welcomeLabel.setLocation(x, welcomeLabel.getY());
             }
@@ -74,15 +68,17 @@ public abstract class AbstractMemberGUI extends JPanel implements Loginable{
         gbc.insets = new Insets(0,0,0,0);
         mainPanel.add(buttonsPanel, gbc);
 
-        // buat object ImageIcon dari gambar
+        // buat object image icon dan label dari gambar yang ingin ditampilkan, kemudian tambahkan ke panel untuk gambar (pictPanel)
         String dir = System.getProperty("user.dir")+"/assignment4/src/main/java/assignments/assignment4/gui/designs/mai3.png";
         ImageIcon mai =new ImageIcon(dir);
         JLabel maiLabel =new JLabel(mai);
         pictPanel.add(maiLabel, BorderLayout.SOUTH);
 
+        // tambahkan mainPanel dan pictPanel ke frame dan atur letaknya di frame
         add(mainPanel, BorderLayout.WEST);
         add(pictPanel, BorderLayout.CENTER);
 
+        // atur background panel untuk button
         buttonsPanel.setBackground(new Color(198, 224, 225));
     }
 
@@ -101,8 +97,11 @@ public abstract class AbstractMemberGUI extends JPanel implements Loginable{
              throw new IllegalStateException("Number of buttons and listeners must be equal.");
         }
 
+        // buat panel untuk button
         JPanel buttonsPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
+
+        // atur letak dan tampilan button
         gbc.gridx = 0;
         gbc.gridy = GridBagConstraints.RELATIVE;
         gbc.fill = GridBagConstraints.NONE;
@@ -114,29 +113,35 @@ public abstract class AbstractMemberGUI extends JPanel implements Loginable{
 
         for (int i = 0; i < buttons.length; i++) {
             JButton button = buttons[i];
-            button.addActionListener(listeners[i]);
-            setButtonDesign(button);
-            buttonsPanel.add(button, gbc);
+            button.addActionListener(listeners[i]); // action listener untuk button yang telah dibuat
+            setButtonDesign(button); // atur tampilan button yang telah dibuat
+            buttonsPanel.add(button, gbc); // tambahkan button ke buttonsPanel
         }
 
+        // buat button untuk login dan atur tampilannya
         JButton logoutButton = new JButton("Logout");
         setButtonDesign(logoutButton);
 
+        // action listener button logout
         logoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 MainFrame.getInstance().logout();
             }
         });
-        buttonsPanel.add(logoutButton, gbc);
+        buttonsPanel.add(logoutButton, gbc); // tambahkan button logout ke buttonsPanel
         return buttonsPanel;
     }
+
+    /**
+     * Method untuk mengatur tampilan button.
+     * */
     private void setButtonDesign(JButton button) {
         button.setFont(new Font("Shikamaru", Font.BOLD, 15));
         button.setPreferredSize(new Dimension(250, 30));
         button.setBackground(new Color(23, 36, 110));
         button.setForeground(Color.WHITE);
-        button.addMouseListener(new java.awt.event.MouseAdapter() {
+        button.addMouseListener(new java.awt.event.MouseAdapter() { // agar button berubah tampilan saat cursor hover diatasnya
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 button.setBackground(new Color(128, 175, 191));
                 button.setForeground(new Color(23, 36, 110));
@@ -168,13 +173,13 @@ public abstract class AbstractMemberGUI extends JPanel implements Loginable{
      * */
     public boolean login(String id, String password) {
         // TODO
-        loggedInMember = systemCLI.authUser(id, password); // modifikasi method login dari class SystemCLI TP 3
+        loggedInMember = systemCLI.authUser(id, password); // autentikasi user berdasarkan id dan password yang diinput
 
-        if (loggedInMember != null) {
+        if (loggedInMember != null) { // jika user valid / telah terautentikasi
             welcomeLabel.setText("----- Welcome, " + loggedInMember.getNama() + "! -----");
             loggedInAsLabel.setText("Logged in as:" + loggedInMember.getId());
             return true;
-        } else {
+        } else { // jika user tidak terautentikasi
             return false;
         }
     }

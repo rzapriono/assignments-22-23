@@ -35,6 +35,7 @@ public class MemberSystemGUI extends AbstractMemberGUI {
     @Override
     protected JButton[] createButtons() {
         // TODO
+        // buat button untuk laundry / buat nota dan button untuk menampilkan detail nota
         JButton laundryButton = new JButton("Saya ingin Laundry");
         JButton detailNotaButton = new JButton("Lihat detail nota saya");
 
@@ -64,9 +65,11 @@ public class MemberSystemGUI extends AbstractMemberGUI {
      * */
     private void showDetailNota() {
         // TODO
+        // buat text area untuk menampilkan detail nota yang telah dibuat oleh member yang sedang login
         JTextArea notaTextArea = new JTextArea(15,40);
         notaTextArea.setEditable(false);
 
+        // implementasikan scroll secara vertikal pada text area
         JScrollPane scrollPane = new JScrollPane(notaTextArea);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
@@ -74,16 +77,16 @@ public class MemberSystemGUI extends AbstractMemberGUI {
         Nota[] notaListLoggedInMember = loggedInMember.getNotaList();
         for (Nota nota : notaListLoggedInMember){
             nota.calculateHarga();
-            detailNota += nota + "\n";
+            detailNota += nota + "\n"; // tambahkan detail tiap nota dari nota yang telah dipesan oleh loggedInMember ke variabel detailnota
         }
-        if (notaListLoggedInMember.length == 0){
+        if (notaListLoggedInMember.length == 0){ // apabila loggedInMember pernah laundry
             detailNota = "Belum pernah laundry di CuciCuci? hiks:(";
         }
-        notaTextArea.setText(detailNota);
-        notaTextArea.setCaretPosition(0);
+        notaTextArea.setText(detailNota); // masukkan string detailNota ke text area yang telah dibuat
+        notaTextArea.setCaretPosition(0); // posisi default dari atas
 
         JOptionPane.showMessageDialog(this, scrollPane, "List Nota",
-                JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.INFORMATION_MESSAGE); // tampilkan informasi detail nota
 
     }
 
