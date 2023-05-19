@@ -46,7 +46,6 @@ public class Nota {
             sisaHariPengerjaan = 3;
         }
         cuciHarga = berat * baseHarga; // harga untuk cuci tanpa service lain
-
         this.isDone();
         this.calculateHarga();
     }
@@ -93,7 +92,9 @@ public class Nota {
      */
     public void toNextDay() {
         // TODO
-        sisaHariPengerjaan -= 1; // kurangi sisa hari pengerjaan
+        if (!isDone()){
+            sisaHariPengerjaan -= 1; // kurangi sisa hari pengerjaan
+        }
         if (!isDone() && sisaHariPengerjaan < 0){ // jika nota belum selesai atau terlambat
             isLate = true;
         }
@@ -105,13 +106,15 @@ public class Nota {
      */
     public long calculateHarga() {
         // TODO
-        totalHarga = cuciHarga;
+        totalHarga = 0;
+        totalHarga += cuciHarga;
         for (LaundryService service : services){ // tambahkan harga dari service yang dipesan ke total harga
             totalHarga += service.getHarga(berat);  
         }
         
         if (isLate){ // jika terlambat, maka diberikan kompensasi 2000 per hari (total harga - 2000 untuk tiap hari keterlambatan)
             totalHarga -= (2000 * Math.abs(sisaHariPengerjaan));
+            
         }
 
         if (totalHarga < 0){ // total harga tidak boleh negatif

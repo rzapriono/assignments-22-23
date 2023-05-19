@@ -89,7 +89,6 @@ public class MemberSystem extends SystemCLI {
     public void processLihatNota(){
         Nota[] notaListLoginMember = loginMember.getNotaList(); // nota pesanan dari member yang sedang login
         for (Nota nota : notaListLoginMember){
-            nota.calculateHarga(); // hitung harga, cek keterlambatan untuk tiap nota
             System.out.println(nota); // tampilkan informasi nota sesuai dengan ketentuan soal
         }
     }

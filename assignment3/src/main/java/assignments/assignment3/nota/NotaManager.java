@@ -33,4 +33,9 @@ public class NotaManager {
         notaList = enlargedNotaList; // samakan ukuran array dan elemennya
         notaList[notaList.length - 1] = nota; // masukkan paramater ke array asli
     }
+
+    public static Nota[] getAllNota() {
+        return notaList;
+    }
+    
 }

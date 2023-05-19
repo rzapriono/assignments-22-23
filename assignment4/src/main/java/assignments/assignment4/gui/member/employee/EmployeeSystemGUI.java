@@ -7,6 +7,7 @@ import assignments.assignment3.user.menu.SystemCLI;
 import assignments.assignment4.gui.member.AbstractMemberGUI;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class EmployeeSystemGUI extends AbstractMemberGUI {
@@ -31,7 +32,12 @@ public class EmployeeSystemGUI extends AbstractMemberGUI {
     @Override
     protected JButton[] createButtons() {
         // TODO
+        JButton nyuciButton = new JButton("It's nyuci time");
+        JButton displayListNotaButton = new JButton("Display List Nota");
+
         return new JButton[]{
+                nyuciButton,
+                displayListNotaButton
         };
     }
 
@@ -55,6 +61,22 @@ public class EmployeeSystemGUI extends AbstractMemberGUI {
      * */
     private void displayNota() {
         // TODO
+        String displayNota = "";
+        for (Nota nota : NotaManager.getAllNota()){
+            displayNota += nota.getNotaStatus() + "\n";
+        }
+
+        if (NotaManager.getAllNota().length == 0){
+            String dir = System.getProperty("user.dir")+"/assignment4/src/main/java/assignments/assignment4/gui/designs/cry2.gif";
+            ImageIcon sleeping =new ImageIcon(dir);
+
+            JOptionPane.showMessageDialog(this, "Belum pernah ada yang laundry di CuciCuci! hiks:(", "List Nota",
+                    JOptionPane.INFORMATION_MESSAGE, sleeping);
+            return;
+        }
+
+        JOptionPane.showMessageDialog(this, displayNota, "List Nota",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
@@ -63,5 +85,25 @@ public class EmployeeSystemGUI extends AbstractMemberGUI {
      * */
     private void cuci() {
         // TODO
+        String kerjakanString = "";
+        for (Nota nota : NotaManager.getAllNota()){
+            kerjakanString += nota.kerjakan() + "\n";
+        }
+
+        if (NotaManager.getAllNota().length == 0){
+            String dir = System.getProperty("user.dir")+"/assignment4/src/main/java/assignments/assignment4/gui/designs/cry2.gif";
+            ImageIcon sleeping =new ImageIcon(dir);
+
+            JOptionPane.showMessageDialog(this, "Belum pernah ada yang laundry di CuciCuci! hiks:(", "List Nota",
+                    JOptionPane.INFORMATION_MESSAGE, sleeping);
+            return;
+        }
+
+        JOptionPane.showMessageDialog(this,
+                "Stand back! " + loggedInMember.getNama() + " beginning to nyuci!", "List Nota",
+                JOptionPane.INFORMATION_MESSAGE);
+
+        JOptionPane.showMessageDialog(this, kerjakanString, "List Nota",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 }

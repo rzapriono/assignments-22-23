@@ -6,6 +6,7 @@ import assignments.assignment3.user.menu.MemberSystem;
 import assignments.assignment4.gui.HomeGUI;
 import assignments.assignment4.gui.LoginGUI;
 import assignments.assignment4.gui.RegisterGUI;
+import assignments.assignment4.gui.member.AbstractMemberGUI;
 import assignments.assignment4.gui.member.Loginable;
 import assignments.assignment4.gui.member.employee.EmployeeSystemGUI;
 import assignments.assignment4.gui.member.member.CreateNotaGUI;
@@ -33,14 +34,16 @@ public class MainFrame extends JFrame{
     private MainFrame(){
         super("CuciCuciSystem");
 //        TODO: uncomment code dibawah ini setelah kamu implmentasikan addEmployee pada EmployeeSystem.
-//        // for context dari 2 employee baru ini : https://ristek.link/karyawan-baru-cucicuci
-//        employeeSystem.addEmployee(new Employee[]{
-//                new Employee("delta Epsilon Huha Huha", "ImplicitDiff"),
-//                new Employee("Regret", "FansBeratKanaArima")
-//        });
+//        for context dari 2 employee baru ini : https://ristek.link/karyawan-baru-cucicuci
+        employeeSystem.addEmployee(new Employee[]{
+                new Employee("delta Epsilon Huha Huha", "ImplicitDiff"),
+                new Employee("Regret", "FansBeratKanaArima"),
+                new Employee ("Reza Suaminya Mai", "MaiWangy")
+        });
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(700, 432);
+        setSize(900, 450);
         setVisible(true);
+        setResizable(false);
         loginablePanel = new Loginable[]{
                 employeeSystemGUI,
                 memberSystemGUI,
@@ -84,6 +87,7 @@ public class MainFrame extends JFrame{
      * */
     public void navigateTo(String page){
         // TODO
+        cards.show(mainPanel, page); // switch ke panel yang ingin ditampilkan
     }
 
     /**
@@ -97,11 +101,16 @@ public class MainFrame extends JFrame{
      * @return boolean yang menandakan apakah login berhasil atau gagal.
      * */
     public boolean login(String id, String password){
+        boolean loginVal = false;
         for (Loginable panel:
                 loginablePanel) {
             // TODO
+            if (panel.login(id,password)){ // cek untuk login pada panel yang implements loginable (MemberSystemGUI dan EmployeeSystemGUI)
+                cards.show(mainPanel, panel.getPageName()); // tampilkan / pergi ke panel tersebut jika berhasil login
+                return true; // return true jika berhasil login
+            }
         }
-        return false;
+        return false; // return false jika gagal login
     }
 
 
@@ -121,6 +130,6 @@ public class MainFrame extends JFrame{
         // Jika ingin tau lebih lanjut mengapa menggunakan SwingUtilities.invokeLater
         // silakan akses https://stackoverflow.com/questions/6567870/what-does-swingutilities-invokelater-do
         // Tapi in general kalian tidak usah terlalu overthinking line ini selain fungsi utamanya adalah menampilkan GUI
-        SwingUtilities.invokeLater(MainFrame::getInstance);
+        SwingUtilities.invokeLater(MainFrame::getInstance);      
     }
 }
